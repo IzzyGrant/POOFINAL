@@ -26,6 +26,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.audio.Sound;
 
 public class Juego implements Screen {
 
@@ -33,6 +34,8 @@ public class Juego implements Screen {
     private Music musicaFondo;
     private Music musicaFondo2;
     private Music musicaFondo3;
+    Sound salto;
+    Sound monedasound;
     private NivelManager nivelManager;
 
     static class Koala {
@@ -137,6 +140,9 @@ public class Juego implements Screen {
         musicaFondo3 = Gdx.audio.newMusic(Gdx.files.internal("Level3.mp3"));
         musicaFondo3.setLooping(true);
         musicaFondo3.setVolume(0.6f);
+
+        salto = Gdx.audio.newSound(Gdx.files.internal("Jump1.wav"));
+        monedasound = Gdx.audio.newSound(Gdx.files.internal("coin.wav"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 30, 20);
@@ -593,7 +599,7 @@ public class Juego implements Screen {
         font.getData().setScale(escalaBase * 0.9f);
         font.setColor(getColorPorEstado());
         font.draw(hudBatch, "ESTADO: " + koala.state.toString(),
-            Gdx.graphics.getWidth() - 300 * densidad, Gdx.graphics.getHeight() - 50 * densidad);
+            Gdx.graphics.getWidth() - 320 * densidad, Gdx.graphics.getHeight() - 65 * densidad);
 
         // MENSAJE DE BIENVENIDA
         if (tiempoJuego < 10 && !cambiandoNivel && !perdiendoVida && !gameOver) {
@@ -639,6 +645,7 @@ public class Juego implements Screen {
             koala.velocity.y += Koala.JUMP_VELOCITY;
             koala.state = Koala.State.Jumping;
             koala.grounded = false;
+            salto.play(0.8f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A) || isTouched(0, 0.25f)) {
