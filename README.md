@@ -36,7 +36,7 @@ No debe olvidarse que hay dos formas de ejecutar la aplicacion. Esto dependera d
 
 Se deja informacion acerca de esto para que sea posible probar de forma nativa el juego:
 
-(https://developer.android.com/tools/adb?hl=es-419)[Android Debug Bridge, puente de comunicación]
+[Android Debug Bridge, puente de comunicación](https://developer.android.com/tools/adb?hl=es-419)
 
 
 Sin mas estoy al tanto.
